@@ -3,13 +3,14 @@
 " https://dougblack.io/words/a-good-vimrc.html
 
 " Base Setup {{{
-set backspace=indent,eol,start " Cursor motion
-set shell=/bin/bash           " for fish shell
 set nocompatible              " be iMproved, required
+set shell=/bin/bash           " for fish shell
+set encoding=utf-8
+
+set backspace=indent,eol,start " Cursor motion
 
 " Blink cursor on error instead of beeping (grr)
 set visualbell
-set encoding=utf-8
 " }}}
 " Vundle {{{
 " Helps force plugins to load correctly when it is turned back on below
