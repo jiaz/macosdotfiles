@@ -1,5 +1,11 @@
 # Global Settings
+fish_vi_key_bindings
+
 set -Ux EDITOR vim
+
+# Abbr and alias
+abbr vi 'vim'
+abbr l 'ls -l'
 
 # https://github.com/jethrokuan/fzf
 set -Ux FZF_LEGACY_KEYBINDINGS 0
