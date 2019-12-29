@@ -19,6 +19,12 @@ if not functions -q fisher
     fish -c fisher
 end
 
+# Spacefish
+set -Ux SPACEFISH_TIME_SHOW true
+set -Ux SPACEFISH_PACKAGE_SHOW false
+set -Ux SPACEFISH_RUBY_SYMBOL 'Ruby '
+set -Ux SPACEFISH_VI_MODE_SHOW false
+
 # Load rbenv automatically by appending
 # the following to ~/.config/fish/config.fish:
 

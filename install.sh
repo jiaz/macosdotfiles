@@ -5,6 +5,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 # Homebrew
 brew install vim
 brew install fzf
+brew install fzy
 brew install rbenv
 brew install pyenv
 brew install wget
