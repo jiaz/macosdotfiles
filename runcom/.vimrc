@@ -4,7 +4,6 @@
 
 " Base Setup {{{
 set nocompatible              " be iMproved, required
-set shell=/bin/bash           " for fish shell
 set encoding=utf-8
 
 set backspace=indent,eol,start " Cursor motion
@@ -12,29 +11,21 @@ set backspace=indent,eol,start " Cursor motion
 " Blink cursor on error instead of beeping (grr)
 set visualbell
 " }}}
-" Vundle {{{
-" Helps force plugins to load correctly when it is turned back on below
-filetype off
+" VimPlug {{{
+call plug#begin('~/.vim/plugged')
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-
-call vundle#begin()
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'simnalamburt/vim-mundo'
-Plugin 'scrooloose/nerdtree'
-Plugin 'joshdick/onedark.vim'
+Plug 'mhartington/oceanic-next'
+Plug 'scrooloose/nerdtree'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Plug 'ctrlpvim/ctrlp.vim'
+Plug 'simnalamburt/vim-mundo'
 
 " All of your Plugins must be added before the following line
 
-call vundle#end()            " required
-filetype plugin indent on    " required
+call plug#end()
 " }}}
 " Colors {{{
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
@@ -54,7 +45,7 @@ if (empty($TMUX))
 endif
 
 syntax enable           " enable syntax processing
-colorscheme onedark
+colorscheme OceanicNext
 " }}}
 " Spaces & Tabs {{{
 set tabstop=4           " 4 space tab
@@ -113,7 +104,7 @@ nnoremap <leader>s :mksession<CR>
 vnoremap <leader>y "+y
 nnoremap <leader>u :MundoToggle<CR>
 nnoremap <leader>n :NERDTreeToggle<CR>
-map <leader>l :set list!<CR> " Toggle tabs and EOL
+" map <leader>l :set list!<CR> " Toggle tabs and EOL
 " }}}
 " AutoGroups {{{
 augroup configgroup
@@ -145,6 +136,12 @@ let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_custom_ignore = '\vbuild/|dist/|venv/|target/|\.(o|swp|pyc|egg)$'
 " }}}
+" FZF {{{
+nmap <leader>f :GFiles<CR>
+nmap <leader>F :Files<CR>
+nmap <leader>b :Buffers<CR>
+nmap <leader>t :BTags<CR>
+" }}}
 " mundo {{{
 " Enable persistent undo so that undo history persists across vim sessions
 set undofile
@@ -155,7 +152,7 @@ set undodir=~/.vim/undo
 " }}}
 " airline {{{
 set laststatus=2
-let g:airline_theme = 'onedark'
+let g:airline_theme = 'oceanicnext'
 " }}}
 " Custom Functions {{{
  function! <SID>ToggleNumber()
