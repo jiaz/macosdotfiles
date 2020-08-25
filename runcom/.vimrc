@@ -20,8 +20,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'simnalamburt/vim-mundo'
+Plug 'junegunn/vim-easy-align'
 
 " All of your Plugins must be added before the following line
 
@@ -48,9 +48,9 @@ syntax enable           " enable syntax processing
 colorscheme OceanicNext
 " }}}
 " Spaces & Tabs {{{
-set tabstop=4           " 4 space tab
-set expandtab           " use spaces for tabs
-set softtabstop=4       " 4 space tab
+set tabstop=4 " 4 space tab
+set expandtab " use spaces for tabs
+set softtabstop=4 " 4 space tab
 set shiftwidth=4
 set modelines=1
 set autoindent
@@ -58,13 +58,13 @@ set autoindent
 set listchars=tab:▸\ ,eol:¬
 " }}}
 " UI Layout {{{
-set number              " show line numbers
+set number     " show line numbers
 set showmode
-set showcmd             " show command in bottom bar
-set cursorline        " highlight current line
+set showcmd    " show command in bottom bar
+set cursorline " highlight current line
 set wildmenu
 set lazyredraw
-set showmatch           " higlight matching parenthesis
+set showmatch  " higlight matching parenthesis
 set fillchars+=vert:┃
 " }}}
 " Searching {{{
@@ -153,6 +153,10 @@ set undodir=~/.vim/undo
 " airline {{{
 set laststatus=2
 let g:airline_theme = 'oceanicnext'
+" }}}
+" EasyAlign {{{
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
 " }}}
 " Custom Functions {{{
  function! <SID>ToggleNumber()
