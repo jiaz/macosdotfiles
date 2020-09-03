@@ -6,24 +6,22 @@ export XDG_CONFIG_HOME := $(HOME)/.config
 
 .PHONY: test
 
-all: sudo core-macos packages link config
+all: sudo core-macos packages vim zshrc
 
 sudo:
 	sudo -v
 	while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-core-macos: brew fish git
+macosdefaults:
+	sh $(DOTFILES_DIR)/macos/defaults.sh
+
+core-macos: brew git macosdefaults
 
 stow-macos: brew
 	is-executable stow || brew install stow
 
 brew:
 	is-executable brew || curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install | ruby
-
-fish: FISH=/usr/local/bin/fish
-fish: SHELLS=/etc/shells
-fish: brew
-	if ! grep -q $(FISH) $(SHELLS); then brew install fish && echo $(FISH) | sudo tee -a $(SHELLS) && chsh -s $(FISH); fi
 
 git: brew
 	brew install git git-extras
@@ -44,10 +42,22 @@ unlink: stow-macos
 	stow --delete -t $(XDG_CONFIG_HOME) config
 	for FILE in $$(\ls -A runcom); do if [ -f $(HOME)/$$FILE.bak ]; then mv -v $(HOME)/$$FILE.bak $(HOME)/$${FILE%%.bak}; fi; done
 
-config: vim
+vimrc:
+	if [ -f $(HOME)/.vimrc ]; then mv -v $(HOME)/.vimrc $(HOME)/.vimrc.bak; fi
+	ln -s $(DOTFILES_DIR)runcom/.vimrc $(HOME)/.vimrc
 
-vim: link
-	[ ! -d $(VUNDLE_PATH) ] && git clone https://github.com/VundleVim/Vundle.vim.git $(VUNDLE_PATH)
-	pushd $(VUNDLE_PATH) && git pull && popd
-	vim +PluginInstall +qall
+vimplug:
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+	    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+vim: vimrc vimplug
+	vim +PlugInstall +qall
+
+zshrc:
+	if [ -f $(HOME)/.zshrc ]; then mv -v $(HOME)/.zshrc $(HOME)/.zshrc.bak; fi
+	ln -s $(DOTFILES_DIR)runcom/.zshrc $(HOME)/.zshrc
+
+zshconfig:
+	curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
+	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $(HOME)/.oh-my-zsh/custom/themes/powerlevel10k
 
