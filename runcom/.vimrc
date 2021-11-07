@@ -10,6 +10,8 @@ set backspace=indent,eol,start " Cursor motion
 
 " Blink cursor on error instead of beeping (grr)
 set visualbell
+
+set guifont=JetBrainsMono\ Nerd\ Font\ Mono:h14
 " }}}
 " VimPlug {{{
 call plug#begin('~/.vim/plugged')
@@ -22,6 +24,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'simnalamburt/vim-mundo'
 Plug 'junegunn/vim-easy-align'
+Plug 'christoomey/vim-tmux-navigator'
 
 " All of your Plugins must be added before the following line
 

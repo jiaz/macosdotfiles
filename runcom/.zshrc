@@ -75,11 +75,16 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+    git
+)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+
+fpath=(~/.zsh/completion $fpath)
+autoload -Uz compinit && compinit -i
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -87,11 +92,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+ if [[ -n $SSH_CONNECTION ]]; then
+   export EDITOR='vim'
+ else
+   export EDITOR='vim'
+ fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -104,8 +109,48 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias rdev="dcv-cdd.py connect jiajzhou.aka.amazon.com"
+alias t="tmux"
+alias ta="t a -t"
+alias tn="t new -s"
+alias tm="tmuxinator"
+
+alias e=emacs
+alias bb=brazil-build
+
+alias bba='brazil-build apollo-pkg'
+alias bre='brazil-runtime-exec'
+alias brc='brazil-recursive-cmd'
+alias bws='brazil ws'
+alias bwsuse='bws use -p'
+alias bwscreate='bws create -n'
+alias brc=brazil-recursive-cmd
+alias bbr='brc brazil-build'
+alias bball='brc --allPackages'
+alias bbb='brc --allPackages brazil-build'
+alias bbra='bbr apollo-pkg'
+
+alias nds="ninja-dev-sync"
 
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/jiajzhou/.sdkman"
+[[ -s "/Users/jiajzhou/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/jiajzhou/.sdkman/bin/sdkman-init.sh"
+
+export PATH=/usr/local/sbin:$HOME/.toolbox/bin:$PATH
+export PATH=$HOME/Tools/bin:$PATH
+export PATH=$PATH:$(go env GOPATH)/bin
+
+function enable_envs {
+    eval "$(anyenv init -)"
+    eval "$(pyenv init --path)"
+}
+
+# Mount your Dev Desktop
+alias mdev='mkdir -p ~/Desktop/devdesktop && sshfs -o follow_symlinks -o defer_permissions dev:/ ~/Desktop/devdesktop'
+# Unmount your Dev Desktop
+alias udev='umount ~/Desktop/devdesktop && rm -r ~/Desktop/devdesktop'
